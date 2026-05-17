@@ -1,0 +1,53 @@
+classDiagram
+    class Veiculo {
+        -String placa
+        -String modelo
+        -String cor
+        +void cadastrar()
+    }
+
+    class Vaga {
+        -int numero
+        -String status
+        -String tipo
+        +void atualizarStatus(String status)
+    }
+
+    class Funcionario {
+        -String nome
+        -String matricula
+        +Relatorio gerarRelatorio(DateTime dataInicio, DateTime dataFim)
+    }
+
+    class RegistroEstadia {
+        -DateTime horarioEntrada
+        -DateTime horarioSaida
+        -double valorTotal
+        +void registrarEntrada()
+        +void registrarSaida()
+        +double calcularValor()
+    }
+
+    class Pagamento {
+        -double valor
+        -DateTime dataPagamento
+        -String metodoPagamento
+        -String status
+        +boolean processarPagamento()
+    }
+
+    class Relatorio {
+        -DateTime dataInicio
+        -DateTime dataFim
+        -double faturamentoTotal
+        -int ocupacaoMedia
+        +void gerar()
+    }
+
+    Veiculo "1" --> "0..*" RegistroEstadia : possui
+    Vaga "1" --> "0..*" RegistroEstadia : alocada em
+    Funcionario "1" --> "0..*" RegistroEstadia : monitora
+    RegistroEstadia "1" --> "1" Pagamento : gera
+
+    %% Relação invertida conforme solicitado:
+    Relatorio "0..*" ..> "1" Funcionario : emitido por
